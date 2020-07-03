@@ -27,7 +27,7 @@ sub parseDirectHeaders {
 	
 	my ($header) = grep { $_ =~ /content-range:/i } @headers;
 	$header =~ m%^Content-Range:\s+bytes\s+(\d+)-(\d+)/(\d+)%i;
-	${*$self}{'range'} = $1 . '-' . $2; if ref ${*$self} eq 'HASH';
+	${*$self}{'range'} = $1 . '-' . $2 if ref ${*$self} eq 'HASH';
 	
 	$parseDirectHeaders->(@_);
 }
