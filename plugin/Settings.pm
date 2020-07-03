@@ -37,7 +37,7 @@ sub handler {
 			);
 	
 			Slim::Player::ProtocolHandlers->registerHandler(
-				https => http => 'Slim::Player::Protocols::HTTPS'
+				https => 'Slim::Player::Protocols::HTTPS'
 			);
 		}
 	}
