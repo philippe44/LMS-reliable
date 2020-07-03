@@ -12,7 +12,7 @@ sub name {
 }
 
 sub page {
-	return 'plugins/reliable/settings/basic.html';
+	return 'plugins/Reliable/settings/basic.html';
 }
 
 sub prefs {
