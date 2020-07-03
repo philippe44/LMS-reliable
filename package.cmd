@@ -1,5 +1,5 @@
 @echo off
-SET version=0.1
+SET version=0.2
 rem SET type=stable
 SET devroot=..\LMS-reliable
 xcopy "%devroot%\CHANGELOG" "%devroot%\plugin" /y /d
