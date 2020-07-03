@@ -1,0 +1,11 @@
+PLUGIN_RELIABLE
+	EN	Reliable
+	
+PLUGIN_RELIABLE_DESC
+	EN	Persistent HTTP connection. When a streaming fails, it tries to reconnect 5 times
+	
+PLUGIN_RELIABLE_ENABLE
+	EN	Enable
+
+PLUGIN_PLUZZ_ENABLE_DESC
+	EN	Activate the HTTP(S) hook. All HTTP streams will be proxied and if a stream fails in the middle, a re-connection will be attempted 5 times

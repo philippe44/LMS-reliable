@@ -1,0 +1,7 @@
+[% PROCESS settings/header.html %]
+
+	[% WRAPPER setting title="PLUGIN_RELIABLE_ENABLE" desc="PLUGIN_RELIABLE_ENABLE_DESC" %]
+		<input name="pref_enabled" type="checkbox" [% IF prefs.pref_enabled %] checked [% END %]>
+	[% END %]		
+
+[% PROCESS settings/footer.html %]
