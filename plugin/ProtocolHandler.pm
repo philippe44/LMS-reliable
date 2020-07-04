@@ -38,6 +38,7 @@ sub new {
 		'errors'  => 0,   
 		'offset'  => 0,		
 		'session' => Slim::Networking::Async::HTTP->new,
+		'http'    => $session,
 	};
 	
 	# need to know the range of the request we'll "proxy"
@@ -46,14 +47,13 @@ sub new {
 		${*$sock}{'reliable'}{'last'} = $2;
 	}
 
-	$session->close;
-
 	return $sock;
 }
 
 sub close {
 	my $self = shift;
 	my $v = ${*$self}{'reliable'};
+	$v->{'http'}->close;
 	$v->{'session'}->disconnect;
 	$v->{'status'} = IDLE;
 	$v->{'offset'} = 0;
