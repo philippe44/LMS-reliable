@@ -7,7 +7,7 @@
   </targetApplication>
   <optionsURL>plugins/Reliable/settings/basic.html</optionsURL>
   <defaultState>enabled</defaultState>
-  <version>0.13</version>
+  <version>0.14</version>
   <name>PLUGIN_RELIABLE</name>
   <description>PLUGIN_RELIABLE_DESC</description>
   <module>Plugins::Reliable::Plugin</module>

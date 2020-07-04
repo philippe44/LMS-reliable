@@ -8,9 +8,10 @@ use Slim::Utils::Errno;
 
 use constant MAX_ERRORS	=> 5;
 
-use constant IDLE 		=> 1;
-use constant CONNECTING => 2;
-use constant CONNECTED 	=> 3;
+use constant DISCONNECTED => 0;
+use constant IDLE         => 1;
+use constant CONNECTING   => 2;
+use constant CONNECTED    => 3;
 
 my $log = logger('player.streaming.remote');
 
@@ -55,10 +56,11 @@ sub new {
 sub close {
 	my $self = shift;
 	my $v = ${*$self}{'reliable'};
-	$v->{'session'}->disconnect;
-	$v->{'status'} = IDLE;
+	$v->{'session'}->disconnect unless $v->{'status'} == DISCONNECTED;
+	$v->{'status'} = DISCONNECTED;
 	$v->{'offset'} = 0;
 	$self->SUPER::close();
+	main::INFOLOG && $log->is_info && $log->info("closing reliable url ${*$self}{url}");
 }
 
 # we need that call structure to make sure that SUPER calls the 
@@ -69,6 +71,8 @@ sub _sysread {
 	# return in $_[1]
 	my $maxBytes = $_[2];
 	my $v = ${*$self}{'reliable'};
+	
+	return 0 if $v->{'status'} == DISCONNECTED;
 
 	# need to start streaming
 	if ( $v->{'status'} == IDLE ) {
@@ -110,7 +114,8 @@ sub _sysread {
 		main::DEBUGLOG && $log->is_debug && $log->debug("need to wait for ${*$self}{'url'}");
 		return undef;
 	} elsif ( !$v->{'length'} || $v->{'offset'} == $v->{'length'} || $v->{'errors'} >= MAX_ERRORS ) {
-		# don't disconnect here as lingering client requests can cause further sysread
+		$v->{'session'}->disconnect;
+		$v->{'status'} = DISCONNECTED;
 		main::INFOLOG && $log->is_info && $log->info("end of ${*$self}{'url'} s:", time() - $v->{'lastSeen'}, " e:$v->{'errors'}");
 		return 0;
 	} else {
@@ -138,7 +143,7 @@ sub sysread {
 sub canDirectStreamSong { 0 }
 
 # this code must be removed with updated LMS release
-sub readMetaData {
+sub __readMetaData {
 	my $self = shift;
 	my $client = ${*$self}{'client'};
 
@@ -204,7 +209,7 @@ sub __sysread {
 
 		# handle instream metadata for shoutcast/icecast
 		if ($metaPointer == $metaInterval) {
-			$self->readMetaData();
+			$self->__readMetaData();
 			${*$self}{'metaPointer'} = 0;
 			$log->debug("rightshoot $metaPointer");				
 		} 
