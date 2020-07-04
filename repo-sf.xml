@@ -1,13 +1,13 @@
 <?xml version='1.0' standalone='yes'?>
 <extensions>
   <plugins>
-    <plugin version="0.10" name="Reliable" minTarget="7.7" maxTarget="*">
+    <plugin version="0.11" name="Reliable" minTarget="7.7" maxTarget="*">
       <link>http://github.com/philippe44/LMS-Reliable</link>
       <creator>Philippe</creator>
-      <sha>4360d6acb70eb1ff9b449d4edae1a1b36778ff2d</sha>
+      <sha>4eb34096130ec366510e73ea9728c39d9b04e97d</sha>
       <email>philippe_44@outlook.com</email>
       <desc lang="EN">HTTP reliable streaming</desc>
-      <url>http://downloads.sourceforge.net/project/lms-reliable/dev/Reliable-0.10.zip</url>
+      <url>http://downloads.sourceforge.net/project/lms-reliable/dev/Reliable-0.11.zip</url>
       <title lang="EN">Reliable</title>
     </plugin>
   </plugins>

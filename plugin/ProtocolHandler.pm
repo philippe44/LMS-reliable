@@ -31,8 +31,8 @@ sub new {
 	}	
 
 	# I don't think we need a deep copy
-	*$sock = *$session;
-	
+	%{*$sock} = %{*$session};
+
 	${*$sock}{'reliable'} = {    
 		'status'  => IDLE,       
 		'errors'  => 0,   
