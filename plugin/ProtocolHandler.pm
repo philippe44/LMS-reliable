@@ -38,7 +38,6 @@ sub new {
 		'errors'  => 0,   
 		'offset'  => 0,		
 		'session' => Slim::Networking::Async::HTTP->new,
-		'http'    => $session,
 	};
 	
 	# need to know the range of the request we'll "proxy"
@@ -46,6 +45,9 @@ sub new {
 		${*$sock}{'reliable'}{'offset'} = $1;
 		${*$sock}{'reliable'}{'last'} = $2;
 	}
+	
+	# we don't need anymore that http object
+	$session->close;
 
 	return $sock;
 }
@@ -53,7 +55,6 @@ sub new {
 sub close {
 	my $self = shift;
 	my $v = ${*$self}{'reliable'};
-	$v->{'http'}->close;
 	$v->{'session'}->disconnect;
 	$v->{'status'} = IDLE;
 	$v->{'offset'} = 0;
@@ -109,7 +110,7 @@ sub _sysread {
 		main::DEBUGLOG && $log->is_debug && $log->debug("need to wait for ${*$self}{'url'}");
 		return undef;
 	} elsif ( !$v->{'length'} || $v->{'offset'} == $v->{'length'} || $v->{'errors'} >= MAX_ERRORS ) {
-		$v->{'session'}->disconnect;
+		# don't disconnect here as lingering client requests can cause further sysread
 		main::INFOLOG && $log->is_info && $log->info("end of ${*$self}{'url'} s:", time() - $v->{'lastSeen'}, " e:$v->{'errors'}");
 		return 0;
 	} else {
@@ -122,8 +123,9 @@ sub _sysread {
 	}
 }
 
-=with new LMS release
 sub sysread {
+	return __sysread(@_) unless Slim::Player::Protocols::HTTP->can('_sysread');
+	
 	my $readLength = Slim::Player::Protocols::HTTP::sysread(@_);
 
 	if (main::ISWINDOWS && !$readLength) {
@@ -132,7 +134,6 @@ sub sysread {
 
 	return $readLength;
 }
-=cut
 
 sub canDirectStreamSong { 0 }
 
@@ -181,7 +182,7 @@ sub readMetaData {
 	}
 }
 
-sub sysread {
+sub __sysread {
 	my $self = $_[0];
 	my $chunkSize = $_[2];
 	

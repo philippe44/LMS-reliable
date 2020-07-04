@@ -35,7 +35,7 @@ sub parseDirectHeaders {
 sub initPlugin {
 	my $class = shift;
 	
-	*Slim::Player::Protocols::HTTP::parseDirectHeaders = \&parseDirectHeaders;
+	*Slim::Player::Protocols::HTTP::parseDirectHeaders = \&parseDirectHeaders unless Slim::Player::Protocols::HTTP->can('_sysread');
 	
 	if ($prefs->get('enabled')) {
 	
