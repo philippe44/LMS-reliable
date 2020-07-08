@@ -25,7 +25,8 @@ sub new {
 	
 	main::INFOLOG && $log->is_info && $log->info("opening reliable url $args->{url} ", $song->streamUrl);
 	
-	if ( $args->{'url'} =~ /https:\/\// ) {
+	if ( $args->{'url'} =~ /https:\/\// && Slim::Networking::Async::HTTP->hasSSL ) {
+		require Slim::Player::Protocols::HTTPS;
 		$session = Slim::Player::Protocols::HTTPS->new($args);
 	} else {
 		$session = Slim::Player::Protocols::HTTP->new($args);
