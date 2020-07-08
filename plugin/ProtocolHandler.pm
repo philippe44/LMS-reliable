@@ -64,7 +64,7 @@ sub close {
 }
 
 # we need that call structure to make sure that SUPER calls the 
-# object parent, not the class parent
+# object's parent, not the package's parent
 # see http://modernperlbooks.com/mt/2009/09/when-super-isnt.html
 sub _sysread {
 	my $self  = $_[0];
