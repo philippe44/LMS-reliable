@@ -7,7 +7,7 @@
     <minVersion>7.7</minVersion>
   </targetApplication>
   <defaultState>enabled</defaultState>
-  <version>0.15</version>
+  <version>0.17</version>
   <name>PLUGIN_RELIABLE</name>
   <description>PLUGIN_RELIABLE_DESC</description>
   <module>Plugins::Reliable::Plugin</module>

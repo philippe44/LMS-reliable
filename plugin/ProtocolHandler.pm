@@ -30,7 +30,9 @@ sub new {
 		$session = Slim::Player::Protocols::HTTPS->new($args);
 	} else {
 		$session = Slim::Player::Protocols::HTTP->new($args);
-	}	
+	}
+	
+	return unless $session;
 
 	# I don't think we need a deep copy
 	%{*$sock} = %{*$session};
