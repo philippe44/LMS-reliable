@@ -4,7 +4,7 @@
     <plugin version="0.18" name="Reliable" minTarget="7.7" maxTarget="*">
       <link>http://github.com/philippe44/LMS-Reliable</link>
       <creator>Philippe</creator>
-      <sha>90ba1915ec2963e504adee7667bb50b2065707a5</sha>
+      <sha>1fed354792eb138a7e739768e28f49f6d01a50f9</sha>
       <email>philippe_44@outlook.com</email>
       <desc lang="EN">HTTP reliable streaming</desc>
       <url>http://downloads.sourceforge.net/project/lms-reliable/dev/Reliable-0.18.zip</url>

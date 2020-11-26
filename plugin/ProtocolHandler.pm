@@ -158,7 +158,7 @@ sub __readMetaData {
 		if ($!) {
 			if ($! ne "Unknown error" && $! != EWOULDBLOCK && $! != EINTR) {
 				$log->error("missed metadata reading $!");		
-			 	#return;
+			 	return;
 			 } 
 		}
 		$byteRead = defined $byteRead ? $byteRead : 0;
@@ -176,7 +176,7 @@ sub __readMetaData {
 			if ($!) {
 				if ($! ne "Unknown error" && $! != EWOULDBLOCK && $! != EINTR) {
 					$log->error("missed metadata reading $!");		
-					#return;
+					return;
 				} 
 			}
 
