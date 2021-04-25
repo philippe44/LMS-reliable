@@ -1,7 +1,7 @@
 <?xml version='1.0' standalone='yes'?>
 <extensions>
   <plugins>
-    <plugin version="0.18" name="Reliable" minTarget="7.7" maxTarget="*">
+    <plugin version="0.18" name="Reliable" minTarget="7.7" maxTarget="8.1.*">
       <link>http://github.com/philippe44/LMS-Reliable</link>
       <creator>Philippe</creator>
       <sha>1fed354792eb138a7e739768e28f49f6d01a50f9</sha>

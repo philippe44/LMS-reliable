@@ -1,2 +1,5 @@
+0.18.2
+ - "Reliable" mode is now included in 8.2
+ 
 0.18.1
  - return when readMetaData fails, do not loop forever

@@ -45,7 +45,7 @@ sub new {
 	};
 	
 	# need to know the range of the request we'll "proxy"
-	if ((delete ${*$sock}{'range'}) =~ /(\d+)-(\d+)/) {
+	if (${*$sock}{'range'} =~ /(\d+)-(\d+)/) {
 		${*$sock}{'reliable'}{'offset'} = $1;
 		${*$sock}{'reliable'}{'last'} = $2;
 	}
